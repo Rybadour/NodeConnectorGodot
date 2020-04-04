@@ -7,7 +7,8 @@ For each of the selected nodes it adds a line to your scene's script like:
 
 Will also add a signal handle for Buttons and TextEdit nodes for their "pressed" and "text_changed" events.
 
-Demo:
+### Demo:
+
 ![Gif Demo](demo.gif)
 
 
