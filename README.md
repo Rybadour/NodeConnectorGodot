@@ -13,3 +13,5 @@ Will also add a signal handle for Buttons and TextEdit nodes for their "pressed"
 
 
 Note: There is one annoyance, that when modifying an existing script Godot doesn't pickup the changes until you unfocus Godot and reopen it.
+
+Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
