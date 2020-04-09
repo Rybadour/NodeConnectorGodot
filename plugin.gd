@@ -8,6 +8,14 @@ func _enter_tree():
 	add_tool_menu_item(MENU_ITEM, self, "onUse");
 	pass
 
+#Adding Support for shortcut instead of going to menu
+#Needs Testing
+func _input(event):
+	if event is InputEventKey:
+		if ( event.is_pressed() and event.scancode == KEY_C ) and (Input.is_action_pressed("cmd_shift") ):
+			onUse(self)
+	
+
 func onUse(evt):
 	var editor = get_editor_interface();
 	var selectedNodes = editor.get_selection().get_selected_nodes();
