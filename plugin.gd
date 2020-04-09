@@ -9,10 +9,9 @@ func _enter_tree():
 	pass
 
 #Adding Support for shortcut instead of going to menu
-#Needs Testing
 func _input(event):
 	if event is InputEventKey:
-		if ( event.is_pressed() and event.scancode == KEY_C ) and (Input.is_action_pressed("cmd_shift") ):
+		if event.is_pressed() and event.scancode == KEY_F9:
 			onUse(self)
 	
 
