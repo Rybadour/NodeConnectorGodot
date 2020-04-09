@@ -9,14 +9,10 @@ func _enter_tree():
 	pass
 
 #Adding Support for shortcut instead of going to menu
-var pressed = false
 func _input(event):
 	if event is InputEventKey:
-		if event.scancode == KEY_SHIFT: pressed = true
-		if event.scancode == KEY_C and pressed:
-			pressed = false
+		if event.is_pressed() and event.scancode == KEY_F9:
 			onUse(self)
-			print("test")
 	
 
 func onUse(evt):
