@@ -2,11 +2,11 @@ tool
 extends EditorPlugin
 
 const PLUGIN_NAME = "NodeConntectorPlugin";
-const MENU_ITEM = "Connect selected Nodes";
+const MENU_ITEM = "Connect selected Nodes (F9)";
 
 func _enter_tree():
 	add_tool_menu_item(MENU_ITEM, self, "onUse");
-	pass
+
 
 #Adding Support for shortcut instead of going to menu
 func _input(event):
