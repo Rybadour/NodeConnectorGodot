@@ -15,3 +15,9 @@ Will also add a signal handle for Buttons and TextEdit nodes for their "pressed"
 Note: There is one annoyance, that when modifying an existing script Godot doesn't pickup the changes until you unfocus Godot and reopen it.
 
 Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flaticon.com
+
+
+### How to install:
+Once downloaded to your project, create a folder named 'addons' if necessary, move the 'plugin.gd' script into that directory, under Project Settings > Plugins find the plugin titled 'NodeConnector' and switch its state to Active
+
+*You may also add a subdirectory within addons to help keep multiple plugins organized if necessary*
