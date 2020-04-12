@@ -98,7 +98,7 @@ func onUse(evt):
 	print("%s: Added %s to scene script '%s'%s." % [PLUGIN_NAME, str(nodeNames), scriptPath, note]);
 	if isBuiltInScript:
 		print(
-			"%s: Built-in scripts cannot be refreshed without closing Godot and re-opening it." +
+			"%s: Built-in scripts cannot be refreshed without closing the scene and re-opening." +
 			"Please do that now to see the changes to the script."
 		);
 	else:
