@@ -18,6 +18,11 @@ Icon made by [Freepik](https://www.flaticon.com/authors/freepik) from www.flatic
 
 
 ### How to install:
-Once downloaded to your project, create a folder named 'addons' if necessary, move the 'plugin.gd' script into that directory, under Project Settings > Plugins find the plugin titled 'NodeConnector' and switch its state to Active
+Once downloaded to your project, create a folder named 'addons' if necessary, then inside 'addons'
+create a folder for this plugin ('node-connector' is a good name), move the 'plugin.gd'
+script into that directory, under Project Settings > Plugins find the plugin titled 'NodeConnector'
+and switch its state to Active.
 
-*You may also add a subdirectory within addons to help keep multiple plugins organized if necessary*
+Alternatively if you use git you could add this plugin as a submodule in the folder mentioned above.
+
+Ex. `git submodule add https://github.com/Rybadour/NodeConnectorGodot.git addons/node-connector`
