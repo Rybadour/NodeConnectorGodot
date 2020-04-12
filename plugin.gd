@@ -27,10 +27,13 @@ func onUse(evt):
 	var sceneScript:Script = scene.get_script();
 	var scriptPath = "";
 	var scriptSource = "";
+	var isBuiltInScript = false;
 	if sceneScript == null:
 		scriptPath = getFilePathPrefix(scene.filename) + scene.name + ".gd";
 	else:
 		scriptPath = sceneScript.resource_path;
+		if scriptPath.match("*.tscn::*"):
+			isBuiltInScript = true;
 
 	if sceneScript != null && sceneScript.has_source_code():
 		scriptSource = sceneScript.source_code;
@@ -77,20 +80,62 @@ func onUse(evt):
 	scriptSource = modifySection(scriptSource, scriptSource.length(), footerLines);
 	
 	# Actually write to scene script file
-	var f = File.new();
-	var err = f.open(scriptPath, File.WRITE);
-	if err > 0:
-		logError("Cannot open %s for writing. Error code: %i" % [scriptPath, err]);
-		return;
-	f.store_string(scriptSource);
-	f.close();
-	
+	if isBuiltInScript:
+		if !writeToSceneFile(scene.filename, scriptSource):
+			return;
+	else:
+		if !writeToFile(scriptPath, scriptSource):
+			return;
+			
 	var updatedScript = load(scriptPath) as Script;
 	scene.set_script(updatedScript);
 	
+	var note = "";
+	if isBuiltInScript:
+		note = " (built-in script)";
+	
 	# Success!
-	print("%s: Added %s to scene script '%s'." % [PLUGIN_NAME, str(nodeNames), scriptPath]);
-	print("%s: Please unfocus Godot window and refocus to see changes to script." % PLUGIN_NAME);
+	print("%s: Added %s to scene script '%s'%s." % [PLUGIN_NAME, str(nodeNames), scriptPath, note]);
+	if isBuiltInScript:
+		print(
+			"%s: Built-in scripts cannot be refreshed without closing Godot and re-opening it." +
+			"Please do that now to see the changes to the script."
+		);
+	else:
+		print("%s: Please unfocus Godot window and refocus to see changes to script." % PLUGIN_NAME);
+
+
+func writeToSceneFile(filename, scriptSource):
+	var fullSource = readFile(filename);
+	
+	var regex = RegEx.new();
+	regex.compile('(?s)(script\/source = ").*(\n"\n)');
+	var escaped = scriptSource.replace('"', '\\"');
+	var modified = regex.sub(fullSource, "$1" + escaped + "$2");
+	
+	return writeToFile(filename, modified);
+	
+
+func readFile(path):
+	var f = File.new();
+	var err = f.open(path, File.READ);
+	if err > 0:
+		logError("Cannot open %s for writing. Error code: %d" % [path, err]);
+		return null;
+	var source = f.get_as_text();
+	f.close();
+	return source;
+	
+	
+func writeToFile(path, source):
+	var f = File.new();
+	var err = f.open(path, File.WRITE);
+	if err > 0:
+		logError("Cannot open %s for writing. Error code: %d" % [path, err]);
+		return false;
+	f.store_string(source);
+	f.close();
+	return true;
 
 
 func modifySection(source, pos, sourceLines):
